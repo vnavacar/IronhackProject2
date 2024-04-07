@@ -1,0 +1,202 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+}
+
+header {
+    background: salmon;
+    text-align: center;
+    width: 100%;
+}
+
+header h1 {
+    margin: 0;
+    padding: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    background: lightgray;
+}
+
+nav li {
+    padding: 10px;
+}
+
+nav li a {
+    text-decoration: none;
+    color: black;
+}
+
+
+main {
+    display: flex;
+    flex-wrap: column;
+    flex: 1;
+    flex-grow: 1;
+    padding: 20px;
+    justify-content: center;
+}
+
+article {
+    margin-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: lightgray;
+}
+
+article img {
+    max-width: 100%; 
+    height: auto;
+}
+
+
+
+article h2 {
+    text-align: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.Positivos {
+    color: green;
+}
+.Negativos {
+    color: red;
+}
+
+
+
+footer {
+    background: grey;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    height: min-content;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para desktop */
+@media (min-width: 768px) {
+
+
+    nav {
+        width: 100%;
+        margin: 10px;
+    }
+
+    nav ul {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    main {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    article {
+        width: calc(33.333% - 20px); 
+        margin-bottom: 0; 
+    }
+
+    section {
+        margin-bottom: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background: lightgray;
+        width: 30%;
+    }
+    section img {
+        max-width: 100%; 
+        height: auto;
+    }
+
+
+    nav li a:hover {
+        background: darkgray;
+    }
+}
+
+
+
+/* Estilos para móvil */
+@media (max-width: 767px) {
+
+    nav ul {
+        flex-direction: row;
+    }
+
+    section {
+        width: 100%;
+        background-color: lightgray;
+        margin-bottom: 20px;
+    }
+
+    section img {
+        max-width: 100%; 
+        height: auto;
+    }
+
+
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+}
