@@ -26,6 +26,32 @@
                 <h3>Fábrica</h3>
                 <p>Aquí puedes construir y asignar taladros, hornos, fabricadores, etc.</p>
                 <!--pagina principal de construccion, asignacion de edificios...-->
+                <div class="section">
+                    <h4>Acciones Manuales</h4>
+                    <button onclick="mineStone()">Minar Piedra</button>
+                    <button onclick="mineCoal()">Minar Carbón</button>
+                    <button onclick="mineIronOre()">Minar Mineral de Hierro</button>
+                    <button onclick="mineCopperOre()">Minar Mineral de Cobre</button>
+                    <button onclick="craftGears()">Fabricar Engranajes</button>
+                    <button onclick="craftCopperWires()">Fabricar Cables de Cobre</button>
+                    <button onclick="craftCircuits()">Fabricar Circuitos</button>
+                </div>
+                <div class="section">
+                    <h4>Taladros</h4>
+                    <button onclick="buildDrill()">Construir Taladro</button>
+                    <!-- Añadir opciones para asignar taladros aquí -->
+                </div>
+                <div class="section">
+                    <h4>Hornos</h4>
+                    <button onclick="buildFurnace()">Construir Horno</button>
+                    <!-- Añadir opciones para asignar hornos aquí -->
+                </div>
+                <div class="section">
+                    <h4>Fabricadores</h4>
+                    <button onclick="buildAssembler()">Construir Fabricador</button>
+                    <!-- Añadir opciones para fabricar objetos aquí -->
+                </div>
+
             </div>
         
             <div id="Investigacion" class="tabcontent">
@@ -42,7 +68,7 @@
         </div>
         <div class="log">
             <h2>Log de Mensajes</h2>
-            <!-- Aquí se mostrarán los mensajes del juego -->
+            <div id="messageLog"></div>
         </div>
     </div>
     <script src="script.js"></script>

@@ -30,6 +30,19 @@ header {
     text-align: center;
 }
 
+.section {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.section h4 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
 .tabcontent {
     display: none;
     padding: 20px;
