@@ -5,7 +5,8 @@ const gameState = {
         mineralHierro: 0,
         mineralCobre: 0,
         placasHierro: 0,
-        PlacasCobre: 0,
+        placasCobre: 0,
+        brick: 0,
         engranajes: 0,
         cableCobre: 0,
         circuitos: 0,
@@ -34,6 +35,16 @@ const gameState = {
     }
 };
 
+function updateResources() {
+    for (const [key, value] of Object.entries(gameState.resources)) {
+        const resourceId = `resource_${key}`;
+        const resourceElement = document.getElementById(resourceId);
+        if (resourceElement) {
+            resourceElement.children[0].textContent = value;
+        }
+    }
+}
+
 
 window.onload = () => {
     loadGameState();
@@ -54,26 +65,32 @@ setInterval(() => { // tick del juego, uno cada segundo
 function gameTick() {
     // Lógica para procesar los recursos cada tick
 
+
     // Actualizar estadísticas de tiempo de juego
     gameState.stats.playTime += 1;
 
     // Actualizar la interfaz de usuario aquí basado en gameState
+    updateResources();
 }
 
 function mineStone() {
     gameState.resources.stone += 1;
+    updateResources();
 }
 
 function mineCoal() {
-    gameState.resources.coal += 1;
+    gameState.resources.carbon += 1;
+    updateResources();
 }
 
 function mineIronOre() {
     gameState.resources.mineralHierro += 1;
+    updateResources();
 }
 
 function mineCopperOre() {
     gameState.resources.mineralCobre += 1;
+    updateResources();
 }
 
 function craftGears(){
@@ -81,17 +98,19 @@ function craftGears(){
     if(gameState.resources.placasHierro >= 2){
         gameState.resources.placasHierro -= 2;
         gameState.resources.engranajes += 1;
+        updateResources();
     }
     else{
         writeToLog("Necesitas 2 placas de hierro para construir un engranaje");
     }
 }
 
-function craftCopperWire(){
+function craftCopperWires(){
 
     if(gameState.resources.PlacasCobre >= 1){
         gameState.resources.PlacasCobre -= 1;
         gameState.resources.cableCobre += 2;
+        updateResources();
     }
     else{
         writeToLog("Necesitas 1 placa de cobre para construir cable");
@@ -103,6 +122,7 @@ function craftCircuits(){
         gameState.resources.PlacasHierro -= 1;
         gameState.resources.cableCobre -= 3;
         gameState.resources.circuitos += 1;
+        updateResources();
     }
     else{
         writeToLog("Necesitas 1 placa de hierro y 3 cables para construir un circuito");

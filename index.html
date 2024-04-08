@@ -13,7 +13,17 @@
     <div class="container">
         <div class="resources">
             <h2>Recursos</h2>
-            <!-- Piedra, carbon, hierro... -->
+            <div id="resource_stone">Piedra: <span>0</span></div>
+            <div id="resource_carbon">Carbón: <span>0</span></div>
+            <div id="resource_mineralHierro">Mineral de Hierro: <span>0</span></div>
+            <div id="resource_mineralCobre">Mineral de Cobre: <span>0</span></div>
+            <div id="resource_placasHierro">Placas de Hierro: <span>0</span></div>
+            <div id="resource_placasCobre">Placas de Cobre: <span>0</span></div>
+            <div id="resource_engranajes">Engranajes: <span>0</span></div>
+            <div id="resource_cableCobre">Cable de Cobre: <span>0</span></div>
+            <div id="resource_circuitos">Circuitos: <span>0</span></div>
+            <div id="resource_packsInvestigacion">Packs de Investigación: <span>0</span></div>
+            <div id="resource_acero">Acero: <span>0</span></div>
         </div>
         <div class="main-menu">
             <div class="tabs">
@@ -38,18 +48,29 @@
                 </div>
                 <div class="section">
                     <h4>Taladros</h4>
+
                     <button onclick="buildDrill()">Construir Taladro</button>
-                    <!-- Añadir opciones para asignar taladros aquí -->
+
+                    <div class ="control-group">Piedra: <button onclick="assignDrill('stone')">+</button> <span id="stoneDrills">0</span> <button onclick="unassignDrill('stone')">-</button></div>
+                    <div class ="control-group">Carbón: <button onclick="assignDrill('carbon')">+</button> <span id="coalDrills">0</span> <button onclick="unassignDrill('carbon')">-</button></div>
+                    <div class ="control-group">Mineral de hierro: <button onclick="assignDrill('mineralHierro')">+</button> <span id="ironDrills">0</span> <button onclick="unassignDrill('mineralHierro')">-</button></div>
+                    <div class ="control-group">Mineral de cobre: <button onclick="assignDrill('mineralCobre')">+</button> <span id="copperDrills">0</span> <button onclick="unassignDrill('mineralCobre')">-</button></div>
                 </div>
                 <div class="section">
                     <h4>Hornos</h4>
                     <button onclick="buildFurnace()">Construir Horno</button>
-                    <!-- Añadir opciones para asignar hornos aquí -->
+
+                    <div>Ladrillos: <button onclick="assignFurnace('brick')">+</button> <span id="brickFurnaces">0</span> <button onclick="unassignFurnace('brick')">-</button></div>
+                    <div>Hierro: <button onclick="assignFurnace('placasHierro')">+</button> <span id="ironFurnaces">0</span> <button onclick="unassignFurnace('placasHierro')">-</button></div>
+                    <div>Cobre: <button onclick="assignFurnace('placasCobre')">+</button> <span id="copperFurnaces">0</span> <button onclick="unassignFurnace('placasCobre')">-</button></div>
+                    <div>Acero: <button onclick="assignFurnace('acero')">+</button> <span id="steelFurnaces">0</span> <button onclick="unassignFurnace('acero')">-</button></div>
                 </div>
                 <div class="section">
                     <h4>Fabricadores</h4>
                     <button onclick="buildAssembler()">Construir Fabricador</button>
                     <!-- Añadir opciones para fabricar objetos aquí -->
+                    <div>Engranajes: <button onclick="assignAssembler('engranaje')">+</button> <span id="engranajeAssembler">0</span> <button onclick="unassignAssembler('engranaje')">-</button></div>
+                    <div>Cable: <button onclick="assignAssembler('cableCobre')">+</button> <span id="cableAssembler">0</span> <button onclick="unassignAssembler('cableCobre')">-</button></div>
                 </div>
 
             </div>

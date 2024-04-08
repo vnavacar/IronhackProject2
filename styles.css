@@ -23,6 +23,10 @@ header {
     box-sizing: border-box;
 }
 
+.resources div {
+    margin-bottom: 10px;
+}
+
 .main-menu {
     width: 60%;
     padding: 20px;
@@ -82,4 +86,16 @@ button {
 
 h2 {
     color: #333;
+}
+
+.building-controls {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los controles se ajusten al tamaño de la pantalla */
+    gap: 10px; /* Espacio entre los controles */
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espacio entre elementos dentro de un grupo de control */
 }
