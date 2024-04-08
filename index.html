@@ -48,35 +48,38 @@
                 </div>
                 <div class="section">
                     <h4>Taladros</h4>
-
                     <button onclick="buildBuilding('drill')">Construir Taladro</button> <p>Taladros libres: <span id="idleDrills">0</span></p>
                     <div class="building-controls">
-                    <div class ="control-group">Piedra: <button onclick="assignBuilding('idleDrills', 'stoneDrills')">+</button> <span id="stoneDrills">0</span> <button onclick="assignBuilding('', 'idleDrills')">-</button></div>
-                    <div class ="control-group">Carbón: <button onclick="assignBuilding('idleDrills', 'coalDrills')">+</button> <span id="coalDrills">0</span> <button onclick="assignBuilding('', 'idleDrills')">-</button></div>
-                    <div class ="control-group">Mineral de hierro: <button onclick="assignBuilding('idleDrills', 'ironDrills')">+</button> <span id="ironDrills">0</span> <button onclick="assignBuilding('iron', 'idleDrills')">-</button></div>
-                    <div class ="control-group">Mineral de cobre: <button onclick="assignBuilding('idleDrills', 'copperDrills')">+</button> <span id="copperDrills">0</span> <button onclick="assignBuilding('copperDrills', 'idleDrills')">-</button></div>
+                        <div class="control-group">Piedra: <button onclick="assignBuilding('stoneDrills', 'idleDrills')">-</button> <span id="stoneDrills">0</span> <button onclick="assignBuilding('idleDrills', 'stoneDrills')">+</button></div>
+                        <div class="control-group">Carbón: <button onclick="assignBuilding('coalDrills', 'idleDrills')">-</button> <span id="coalDrills">0</span> <button onclick="assignBuilding('idleDrills', 'coalDrills')">+</button></div>
+                        <div class="control-group">Mineral de hierro: <button onclick="assignBuilding('ironDrills', 'idleDrills')">-</button> <span id="ironDrills">0</span> <button onclick="assignBuilding('idleDrills', 'ironDrills')">+</button></div>
+                        <div class="control-group">Mineral de cobre: <button onclick="assignBuilding('copperDrills', 'idleDrills')">-</button> <span id="copperDrills">0</span> <button onclick="assignBuilding('idleDrills', 'copperDrills')">+</button></div>
+                    </div>
                 </div>
-                </div>
+                
                 <div class="section">
                     <h4>Hornos</h4>
                     <button onclick="buildBuilding('furnace')">Construir Horno</button><p>Hornos libres: <span id="idleFurnaces">0</span></p>
                     <div class="building-controls">
-                    <div class ="control-group">Ladrillos: <button onclick="assignFurnace('brick')">+</button> <span id="brickFurnaces">0</span> <button onclick="unassignFurnace('brick')">-</button></div>
-                    <div class ="control-group">Hierro: <button onclick="assignFurnace('placasHierro')">+</button> <span id="ironFurnaces">0</span> <button onclick="unassignFurnace('placasHierro')">-</button></div>
-                    <div class ="control-group">Cobre: <button onclick="assignFurnace('placasCobre')">+</button> <span id="copperFurnaces">0</span> <button onclick="unassignFurnace('placasCobre')">-</button></div>
-                    <div class ="control-group">Acero: <button onclick="assignFurnace('acero')">+</button> <span id="steelFurnaces">0</span> <button onclick="unassignFurnace('acero')">-</button></div>
+                        <div class="control-group">Ladrillos: <button onclick="assignBuilding('brickFurnaces', 'idleFurnaces')">-</button> <span id="brickFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'brickFurnaces')">+</button></div>
+                        <div class="control-group">Placas de Hierro: <button onclick="assignBuilding('ironFurnaces', 'idleFurnaces')">-</button> <span id="ironFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'ironFurnaces')">+</button></div>
+                        <div class="control-group">Placas de Cobre: <button onclick="assignBuilding('copperFurnaces', 'idleFurnaces')">-</button> <span id="copperFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'copperFurnaces')">+</button></div>
+                        <div class="control-group">Acero: <button onclick="assignBuilding('steelFurnaces', 'idleFurnaces')">-</button> <span id="steelFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'steelFurnaces')">+</button></div>
+                    </div>
                 </div>
-                </div>
+                
                 <div class="section">
                     <h4>Fabricadores</h4>
                     <button onclick="buildBuilding('assembler')">Construir Fabricador</button><p>Fabricadores libres: <span id="idleAssemblers">0</span></p>
                     <div class="building-controls">
-                    <div class ="control-group">Engranajes: <button onclick="assignAssembler('engranaje')">+</button> <span id="engranajeAssembler">0</span> <button onclick="unassignAssembler('engranaje')">-</button></div>
-                    <div class ="control-group">Cables: <button onclick="assignAssembler('cableCobre')">+</button> <span id="cableAssembler">0</span> <button onclick="unassignAssembler('cableCobre')">-</button></div>
-                    <div class ="control-group">Circuitos: <button onclick="assignAssembler('circuitos')">+</button> <span id="circuitoAssembler">0</span> <button onclick="unassignAssembler('circuitos')">-</button></div>
-                    <div class ="control-group">Packs de investigacion: <button onclick="assignAssembler('packsInvestigacion')">+</button> <span id="packInvestigacionAssembler">0</span> <button onclick="unassignAssembler('packsInvestigacion')">-</button></div>
+                        <div class="control-group">Engranajes: <button onclick="assignBuilding('engranajeAssembler', 'idleAssembler')">-</button> <span id="engranajeAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'engranajeAssembler')">+</button></div>
+                        <div class="control-group">Cables de Cobre: <button onclick="assignBuilding('cableAssembler', 'idleAssembler')">-</button> <span id="cableAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'cableAssembler')">+</button></div>
+                        <div class="control-group">Circuitos: <button onclick="assignBuilding('circuitoAssembler', 'idleAssembler')">-</button> <span id="circuitoAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'circuitoAssembler')">+</button></div>
+                        <div class="control-group">Packs de Investigación: <button onclick="assignBuilding('packInvestigacionAssembler', 'idleAssembler')">-</button> <span id="packInvestigacionAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'packInvestigacionAssembler')">+</button></div>
+                    </div>
                 </div>
-                </div>
+                
+
 
             </div>
         

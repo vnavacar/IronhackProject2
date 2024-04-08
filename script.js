@@ -48,6 +48,19 @@ function updateResources() {
             resourceElement.children[0].textContent = value;
         }
     }
+    
+    //document.getElementById("idleDrills").textContent = gameState.buildings.idleDrills;
+    //document.getElementById("idleFurnaces").textContent = gameState.buildings.idleFurnaces;
+    //document.getElementById("idleAssemblers").textContent = gameState.buildings.idleAssembler;
+}
+
+function updateBuildingCounts() {
+    for (const [key, value] of Object.entries(gameState.buildings)) {
+        const element = document.getElementById(key);
+        if (element) {
+            element.textContent = value;
+        }
+    }
 }
 
 
@@ -66,10 +79,12 @@ setInterval(() => { // tick del juego, uno cada segundo
     gameTick();
 }, 1000);
 
-
+// GAME TICK MAESTOR -------------------------
 function gameTick() {
     // Lógica para procesar los recursos cada tick
-
+    processAllDrills();
+    processAllFurnaces();
+    processAllAssemblers();
 
     // Actualizar estadísticas de tiempo de juego
     gameState.stats.playTime += 1;
@@ -77,8 +92,9 @@ function gameTick() {
 
     // Actualizar la interfaz de usuario aquí basado en gameState
     updateResources();
+    updateBuildingCounts();
 }
-
+// --------------------------------------------------------
 
 function processAllDrills() {
     const drills = [
