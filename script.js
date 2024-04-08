@@ -82,6 +82,9 @@ function craftGears(){
         gameState.resources.placasHierro -= 2;
         gameState.resources.engranajes += 1;
     }
+    else{
+        writeToLog("Necesitas 2 placas de hierro para construir un engranaje");
+    }
 }
 
 function craftCopperWire(){
@@ -90,6 +93,9 @@ function craftCopperWire(){
         gameState.resources.PlacasCobre -= 1;
         gameState.resources.cableCobre += 2;
     }
+    else{
+        writeToLog("Necesitas 1 placa de cobre para construir cable");
+    }
 }
 function craftCircuits(){
 
@@ -97,6 +103,9 @@ function craftCircuits(){
         gameState.resources.PlacasHierro -= 1;
         gameState.resources.cableCobre -= 3;
         gameState.resources.circuitos += 1;
+    }
+    else{
+        writeToLog("Necesitas 1 placa de hierro y 3 cables para construir un circuito");
     }
 }
 
