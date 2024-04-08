@@ -16,10 +16,29 @@
             <!-- Piedra, carbon, hierro... -->
         </div>
         <div class="main-menu">
-            <h2>Acciones y Construcciones</h2>
-            <!-- Acciones  -->
-            <button onclick="mineStone()">Minar Piedra</button>
-            <button onclick="buildDrill()">Construir Taladro</button>
+            <div class="tabs">
+                <button class="tablink" onclick="openTab(event, 'Fabrica')">Fábrica</button>
+                <button class="tablink" onclick="openTab(event, 'Investigacion')">Investigación</button>
+                <button class="tablink" onclick="openTab(event, 'Opciones')">Opciones</button>
+            </div>
+        
+            <div id="Fabrica" class="tabcontent">
+                <h3>Fábrica</h3>
+                <p>Aquí puedes construir y asignar taladros, hornos, fabricadores, etc.</p>
+                <!--pagina principal de construccion, asignacion de edificios...-->
+            </div>
+        
+            <div id="Investigacion" class="tabcontent">
+                <h3>Investigación</h3>
+                <p>Aquí puedes investigar nuevas tecnologías y mejoras.</p>
+                <!-- Contenido específico de Investigación -->
+            </div>
+        
+            <div id="Opciones" class="tabcontent">
+                <h3>Opciones</h3>
+                <p>Ajustes del juego y otras opciones.</p>
+                <!-- exportar y importar saves? Debug?-->
+            </div>
         </div>
         <div class="log">
             <h2>Log de Mensajes</h2>
