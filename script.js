@@ -55,10 +55,14 @@ function updateResources() {
 }
 
 function updateBuildingCounts() {
+    console.log('Updating building counts', gameState.buildings);
     for (const [key, value] of Object.entries(gameState.buildings)) {
         const element = document.getElementById(key);
         if (element) {
             element.textContent = value;
+        } else {
+            console.log('Element not found for key:', key);
+            writeToLog('Element not found for key mirar consola')
         }
     }
 }
@@ -223,6 +227,7 @@ function buildBuilding(buildingType) {
             }
 
             writeToLog(`${buildingType} Construido.`);
+            updateBuildingCounts();
         }
     } else {
         writeToLog("Error de edificio invalido");
@@ -237,6 +242,7 @@ function assignBuilding(from, to) {
     } else {
         console.log(`No ${from} available to assign.`);
     }
+    updateBuildingCounts();
 }
 
 
