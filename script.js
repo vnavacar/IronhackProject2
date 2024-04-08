@@ -55,7 +55,7 @@ function updateResources() {
 }
 
 function updateBuildingCounts() {
-    console.log('Updating building counts', gameState.buildings);
+    //console.log('Updating building counts', gameState.buildings);
     for (const [key, value] of Object.entries(gameState.buildings)) {
         const element = document.getElementById(key);
         if (element) {
@@ -68,13 +68,13 @@ function updateBuildingCounts() {
 }
 
 
-window.onload = () => {
-    loadGameState();
+//window.onload = () => {
+//    loadGameState();
     // Actualizar la interfaz de usuario aquí basado en gameState
-};
+//};
 
 
-
+/*
 setInterval(() => { // guardar cada 10 segundos
     saveGameState();
 }, 10000);
@@ -82,6 +82,8 @@ setInterval(() => { // guardar cada 10 segundos
 setInterval(() => { // tick del juego, uno cada segundo
     gameTick();
 }, 1000);
+*/
+
 
 // GAME TICK MAESTOR -------------------------
 function gameTick() {
@@ -107,7 +109,9 @@ function processAllDrills() {
         { type: 'ironDrills', resource: 'mineralHierro' },
         { type: 'copperDrills', resource: 'mineralCobre' }
     ];
-    document.getElementById(resource_carbon).style.color = '';
+    const element = document.getElementById('resource_carbon');
+    element.style.color = '';
+    //document.getElementById(resource_carbon).style.color = '';
     drills.forEach(drill => {
         const drillCount = gameState.buildings[drill.type];
         if(gameState.resources.carbon >= drillCount*0.1){
@@ -116,7 +120,8 @@ function processAllDrills() {
             gameState.carbon -= drillCount*0.1;
         }
         else{
-            document.getElementById(resource_carbon).style.color = 'red';
+            //document.getElementById(resource_carbon).style.color = 'red';
+            element.style.color = 'red';
         }
 
     });
@@ -355,3 +360,12 @@ function updateGameTime() {
     gameState.stats.playTime += 1;
     document.getElementById('gameTime').textContent = gameState.stats.playTime;
 }
+
+
+document.addEventListener('DOMContentLoaded', (event) => { //Inicializacion del programa
+
+    loadGameState();
+
+    setInterval(gameTick, 1000);
+    setInterval(saveGameState,10000);
+});
