@@ -30,6 +30,11 @@ const gameState = {
         circuitoAssembler: 0,
         packInvestigacionAssembler: 0,
     },
+    research: {
+        drillEfficiency: 0, 
+        furnaceEfficiency: 0, 
+        assemblerEfficiency: 0, 
+    },
     stats: {
         playTime: 0, // Tiempo de juego en segundos
     }
@@ -72,6 +77,97 @@ function gameTick() {
 
     // Actualizar la interfaz de usuario aquí basado en gameState
     updateResources();
+}
+
+
+function processAllDrills() {
+    const drills = [
+        { type: 'coalDrills', resource: 'carbon' },
+        { type: 'stoneDrills', resource: 'stone' },
+        { type: 'ironDrills', resource: 'mineralHierro' },
+        { type: 'copperDrills', resource: 'mineralCobre' }
+    ];
+    document.getElementById(resource_carbon).style.color = '';
+    drills.forEach(drill => {
+        const drillCount = gameState.buildings[drill.type];
+        if(gameState.resources.carbon >= drillCount*0.1){
+            const production = drillCount * (1 + gameState.research.drillEfficiency); // Aumenta producción basada en la investigación
+            gameState.resources[drill.resource] += production;
+            gameState.carbon -= drillCount*0.1;
+        }
+        else{
+            document.getElementById(resource_carbon).style.color = 'red';
+        }
+
+    });
+}
+
+function processAllFurnaces() {
+    const furnaces = [
+        { type: 'brickFurnaces', inputResource: 'stone', outputResource: 'ladrillos', inputAmount: 2, outputAmount: 1, resourceId: 'resource_stone' },
+        { type: 'ironFurnaces', inputResource: 'mineralHierro', outputResource: 'placasHierro', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralHierro' },
+        { type: 'copperFurnaces', inputResource: 'mineralCobre', outputResource: 'placasCobre', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralCobre' },
+        { type: 'steelFurnaces', inputResource: 'placasHierro', outputResource: 'acero', inputAmount: 3, outputAmount: 1, resourceId: 'resource_placasHierro' }
+    ];
+
+    // Inicialmente, asumimos que todos los recursos están disponibles
+    furnaces.forEach(furnace => document.getElementById(furnace.resourceId).style.color = '');
+
+    furnaces.forEach(furnace => {
+        const furnaceCount = gameState.buildings[furnace.type];
+        const carbonNeeded = furnaceCount * 0.1;
+        if (gameState.resources.carbon >= carbonNeeded) {
+            const possibleProduction = Math.floor(gameState.resources[furnace.inputResource] / furnace.inputAmount);
+            const actualProduction = Math.min(possibleProduction, furnaceCount * (1 + gameState.research.furnaceEfficiency));
+            
+            if (actualProduction > 0) {
+                gameState.resources.carbon -= carbonNeeded;
+                gameState.resources[furnace.inputResource] -= actualProduction * furnace.inputAmount;
+                gameState.resources[furnace.outputResource] += actualProduction * furnace.outputAmount;
+            } else {
+                // Faltan inputs
+                document.getElementById(furnace.resourceId).style.color = 'red';
+            }
+        } else {
+            // Falta carbon
+            document.getElementById('resource_carbon').style.color = 'red';
+        }
+    });
+}
+
+function processAllAssemblers() {
+    const assemblers = [
+        { type: 'engranajeAssembler', inputResources: [{ resource: 'placasHierro', amount: 2 }], outputResource: 'engranajes', outputAmount: 1 },
+        { type: 'cableAssembler', inputResources: [{ resource: 'placasCobre', amount: 1 }], outputResource: 'cableCobre', outputAmount: 2 },
+        { type: 'circuitoAssembler', inputResources: [{ resource: 'cableCobre', amount: 3 }, { resource: 'placasHierro', amount: 1 }], outputResource: 'circuitos', outputAmount: 1 },
+        { type: 'packInvestigacionAssembler', inputResources: [{ resource: 'engranajes', amount: 1 }, { resource: 'placasCobre', amount: 1 }], outputResource: 'packsInvestigacion', outputAmount: 1 }
+    ];
+
+    assemblers.forEach(assembler => {
+        const assemblerCount = gameState.buildings[assembler.type];
+        let canProduce = true;
+
+        // Verificar si hay suficientes recursos para cada input requerido
+        assembler.inputResources.forEach(input => {
+            if (gameState.resources[input.resource] < input.amount * assemblerCount) {
+                canProduce = false;
+                document.getElementById(`resource_${input.resource}`).style.color = 'red'; // Marcar en rojo si falta
+            }
+        });
+
+        // Si hay suficientes recursos, proceder con la producción
+        if (canProduce) {
+            assembler.inputResources.forEach(input => {
+                gameState.resources[input.resource] -= input.amount * assemblerCount; // Consumir recursos
+            });
+            gameState.resources[assembler.outputResource] += assembler.outputAmount * assemblerCount; // Añadir producto
+
+            // Restablecer el color de los recursos de entrada después de la producción
+            assembler.inputResources.forEach(input => {
+                document.getElementById(`resource_${input.resource}`).style.color = ''; // Restablecer color
+            });
+        }
+    });
 }
 
 function mineStone() {
