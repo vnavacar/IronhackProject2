@@ -5,6 +5,11 @@ body, html {
     height: 100%;
 }
 
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 header {
     background-color: #333;
     color: white;
@@ -14,7 +19,15 @@ header {
 
 .container {
     display: flex;
+    flex-direction: column;
     height: 90%;
+}
+
+.content{
+
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .resources, .log {
@@ -110,4 +123,13 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+footer {
+    background: grey;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    height: min-content;
+    
 }
