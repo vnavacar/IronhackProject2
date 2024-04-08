@@ -85,7 +85,7 @@ setInterval(() => { // tick del juego, uno cada segundo
 */
 
 
-// GAME TICK MAESTOR -------------------------
+// GAME TICK MAESTRO -------------------------
 function gameTick() {
     // Lógica para procesar los recursos cada tick
     processAllDrills();
@@ -174,7 +174,7 @@ function processAllAssemblers() {
 
         // Verificar si hay suficientes recursos para cada input requerido
         assembler.inputResources.forEach(input => {
-            if (gameState.resources[input.resource] < input.amount * assemblerCount) {
+            if (gameState.resources[input.resource] < input.amount * assemblerCount && assemblerCount >= 1) {
                 canProduce = false;
                 document.getElementById(`resource_${input.resource}`).style.color = 'red'; // Marcar en rojo si falta
             }
@@ -285,8 +285,8 @@ function craftGears(){
 
 function craftCopperWires(){
 
-    if(gameState.resources.PlacasCobre >= 1){
-        gameState.resources.PlacasCobre -= 1;
+    if(gameState.resources.placasCobre >= 1){
+        gameState.resources.placasCobre -= 1;
         gameState.resources.cableCobre += 2;
         updateResources();
     }
@@ -296,8 +296,8 @@ function craftCopperWires(){
 }
 function craftCircuits(){
 
-    if(gameState.resources.PlacasHierro >= 1 && gameState.resources.cableCobre >= 3){
-        gameState.resources.PlacasHierro -= 1;
+    if(gameState.resources.placasHierro >= 1 && gameState.resources.cableCobre >= 3){
+        gameState.resources.placasHierro -= 1;
         gameState.resources.cableCobre -= 3;
         gameState.resources.circuitos += 1;
         updateResources();
@@ -357,7 +357,6 @@ function loadGameState() {
     }
 }
 function updateGameTime() {
-    gameState.stats.playTime += 1;
     document.getElementById('gameTime').textContent = gameState.stats.playTime;
 }
 
