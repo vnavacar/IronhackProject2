@@ -87,26 +87,27 @@ button {
 h2 {
     color: #333;
 }
+.building-controls {
+    display: grid;
+    gap: 10px; /* Espacio entre filas */
+    justify-content: center;
+}
 
 .control-group {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 40px 40px 40px; /* 1fr para el texto, y 40px para cada botón y el número */
     align-items: center;
-    gap: 5px; /* Espacio entre elementos dentro de un grupo de control */
+    gap: 10px; /* Espacio entre elementos dentro de cada grupo */
 }
 
 .control-group button, .control-group span {
     text-align: center;
-    width: 30px; /* Ancho fijo para botones y el span del número */
+    min-width: 40px; /* Asegura que todos los botones y el span tengan el mismo ancho */
 }
 
+/* Ajuste opcional para mejorar la visibilidad y alineación */
 .control-group span {
-    display: inline-block;
-    min-width: 30px; /* Asegura que el span no se estreche cuando el número tiene menos dígitos */
-}
-
-/* Opcional: Ajustar el tamaño y la alineación de los botones */
-.control-group button {
-    padding: 0 5px;
-    height: 30px; /* Ajusta la altura si es necesario */
-    line-height: 30px; /* Ajusta para centrar verticalmente el texto del botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
