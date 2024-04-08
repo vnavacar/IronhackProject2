@@ -99,6 +99,7 @@ function gameTick() {
     // Actualizar la interfaz de usuario aquí basado en gameState
     updateResources();
     updateBuildingCounts();
+    console.log(gameState)
 }
 // --------------------------------------------------------
 
@@ -117,7 +118,7 @@ function processAllDrills() {
         if(gameState.resources.carbon >= drillCount*0.1){
             const production = drillCount * (1 + gameState.research.drillEfficiency); // Aumenta producción basada en la investigación
             gameState.resources[drill.resource] += production;
-            gameState.carbon -= drillCount*0.1;
+            gameState.resources.carbon -= drillCount*0.1;
         }
         else{
             //document.getElementById(resource_carbon).style.color = 'red';
