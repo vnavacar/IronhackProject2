@@ -88,14 +88,25 @@ h2 {
     color: #333;
 }
 
-.building-controls {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los controles se ajusten al tamaño de la pantalla */
-    gap: 10px; /* Espacio entre los controles */
-}
-
 .control-group {
     display: flex;
     align-items: center;
     gap: 5px; /* Espacio entre elementos dentro de un grupo de control */
+}
+
+.control-group button, .control-group span {
+    text-align: center;
+    width: 30px; /* Ancho fijo para botones y el span del número */
+}
+
+.control-group span {
+    display: inline-block;
+    min-width: 30px; /* Asegura que el span no se estreche cuando el número tiene menos dígitos */
+}
+
+/* Opcional: Ajustar el tamaño y la alineación de los botones */
+.control-group button {
+    padding: 0 5px;
+    height: 30px; /* Ajusta la altura si es necesario */
+    line-height: 30px; /* Ajusta para centrar verticalmente el texto del botón */
 }
