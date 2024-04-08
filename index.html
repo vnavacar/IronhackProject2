@@ -49,7 +49,7 @@
                 <div class="section">
                     <h4>Taladros</h4>
 
-                    <button onclick="buildDrill()">Construir Taladro</button>
+                    <button onclick="buildDrill()">Construir Taladro</button> <p>Taladros libres: <span id="idleDrills">0</span></p>
                     <div class="building-controls">
                     <div class ="control-group">Piedra: <button onclick="assignDrill('stone')">+</button> <span id="stoneDrills">0</span> <button onclick="unassignDrill('stone')">-</button></div>
                     <div class ="control-group">Carbón: <button onclick="assignDrill('carbon')">+</button> <span id="coalDrills">0</span> <button onclick="unassignDrill('carbon')">-</button></div>
@@ -59,19 +59,21 @@
                 </div>
                 <div class="section">
                     <h4>Hornos</h4>
-                    <button onclick="buildFurnace()">Construir Horno</button>
-
-                    <div>Ladrillos: <button onclick="assignFurnace('brick')">+</button> <span id="brickFurnaces">0</span> <button onclick="unassignFurnace('brick')">-</button></div>
-                    <div>Hierro: <button onclick="assignFurnace('placasHierro')">+</button> <span id="ironFurnaces">0</span> <button onclick="unassignFurnace('placasHierro')">-</button></div>
-                    <div>Cobre: <button onclick="assignFurnace('placasCobre')">+</button> <span id="copperFurnaces">0</span> <button onclick="unassignFurnace('placasCobre')">-</button></div>
-                    <div>Acero: <button onclick="assignFurnace('acero')">+</button> <span id="steelFurnaces">0</span> <button onclick="unassignFurnace('acero')">-</button></div>
+                    <button onclick="buildFurnace()">Construir Horno</button><p>Hornos libres: <span id="idleFurnaces">0</span></p>
+                    <div class="building-controls">
+                    <div class ="control-group">Ladrillos: <button onclick="assignFurnace('brick')">+</button> <span id="brickFurnaces">0</span> <button onclick="unassignFurnace('brick')">-</button></div>
+                    <div class ="control-group">Hierro: <button onclick="assignFurnace('placasHierro')">+</button> <span id="ironFurnaces">0</span> <button onclick="unassignFurnace('placasHierro')">-</button></div>
+                    <div class ="control-group">Cobre: <button onclick="assignFurnace('placasCobre')">+</button> <span id="copperFurnaces">0</span> <button onclick="unassignFurnace('placasCobre')">-</button></div>
+                    <div class ="control-group">Acero: <button onclick="assignFurnace('acero')">+</button> <span id="steelFurnaces">0</span> <button onclick="unassignFurnace('acero')">-</button></div>
+                </div>
                 </div>
                 <div class="section">
                     <h4>Fabricadores</h4>
-                    <button onclick="buildAssembler()">Construir Fabricador</button>
-                    <!-- Añadir opciones para fabricar objetos aquí -->
-                    <div>Engranajes: <button onclick="assignAssembler('engranaje')">+</button> <span id="engranajeAssembler">0</span> <button onclick="unassignAssembler('engranaje')">-</button></div>
-                    <div>Cable: <button onclick="assignAssembler('cableCobre')">+</button> <span id="cableAssembler">0</span> <button onclick="unassignAssembler('cableCobre')">-</button></div>
+                    <button onclick="buildAssembler()">Construir Fabricador</button><p>Fabricadores libres: <span id="idleAssemblers">0</span></p>
+                    <div class="building-controls">
+                    <div class ="control-group">Engranajes: <button onclick="assignAssembler('engranaje')">+</button> <span id="engranajeAssembler">0</span> <button onclick="unassignAssembler('engranaje')">-</button></div>
+                    <div class ="control-group">Cable: <button onclick="assignAssembler('cableCobre')">+</button> <span id="cableAssembler">0</span> <button onclick="unassignAssembler('cableCobre')">-</button></div>
+                </div>
                 </div>
 
             </div>
@@ -84,7 +86,7 @@
         
             <div id="Opciones" class="tabcontent">
                 <h3>Opciones</h3>
-                <p>Ajustes del juego y otras opciones.</p>
+                <p>Tiempo de juego: <span id="gameTime">0</span> segundos</p>
                 <!-- exportar y importar saves? Debug?-->
             </div>
         </div>

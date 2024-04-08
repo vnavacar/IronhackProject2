@@ -68,6 +68,7 @@ function gameTick() {
 
     // Actualizar estadísticas de tiempo de juego
     gameState.stats.playTime += 1;
+    updateGameTime();
 
     // Actualizar la interfaz de usuario aquí basado en gameState
     updateResources();
@@ -178,4 +179,7 @@ function loadGameState() {
         Object.assign(gameState, JSON.parse(savedState));
     }
 }
-
+function updateGameTime() {
+    gameState.stats.playTime += 1;
+    document.getElementById('gameTime').textContent = gameState.stats.playTime;
+}
