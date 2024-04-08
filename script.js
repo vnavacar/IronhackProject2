@@ -6,7 +6,7 @@ const gameState = {
         mineralCobre: 0,
         placasHierro: 0,
         placasCobre: 0,
-        brick: 0,
+        bricks: 0,
         engranajes: 0,
         cableCobre: 0,
         circuitos: 0,
@@ -129,7 +129,7 @@ function processAllDrills() {
 
 function processAllFurnaces() {
     const furnaces = [
-        { type: 'brickFurnaces', inputResource: 'stone', outputResource: 'ladrillos', inputAmount: 2, outputAmount: 1, resourceId: 'resource_stone' },
+        { type: 'brickFurnaces', inputResource: 'stone', outputResource: 'bricks', inputAmount: 2, outputAmount: 1, resourceId: 'resource_stone' },
         { type: 'ironFurnaces', inputResource: 'mineralHierro', outputResource: 'placasHierro', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralHierro' },
         { type: 'copperFurnaces', inputResource: 'mineralCobre', outputResource: 'placasCobre', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralCobre' },
         { type: 'steelFurnaces', inputResource: 'placasHierro', outputResource: 'acero', inputAmount: 3, outputAmount: 1, resourceId: 'resource_placasHierro' }
