@@ -170,6 +170,60 @@ function processAllAssemblers() {
     });
 }
 
+function buildBuilding(buildingType) {
+    const cost = {
+        drill: { engranajes: 5, placasHierro: 10 },
+        furnace: { stone: 10 },
+        assembler: { circuitos: 1, engranajes: 4, placasHierro: 10 }
+    };
+
+    let canBuild = true;
+    if (cost[buildingType]) {
+        Object.entries(cost[buildingType]).forEach(([resource, amount]) => {
+            if (gameState.resources[resource] < amount) {
+                writeToLog(`No hay suficiente ${resource} para construir ${buildingType}.`);
+                canBuild = false;
+            }
+        });
+
+        if (canBuild) {
+            Object.entries(cost[buildingType]).forEach(([resource, amount]) => {
+                gameState.resources[resource] -= amount;
+            });
+
+            switch(buildingType) {
+                case 'drill':
+                    gameState.buildings.idleDrills++;
+                    break;
+                case 'furnace':
+                    gameState.buildings.idleFurnaces++;
+                    break;
+                case 'assembler':
+                    gameState.buildings.idleAssembler++;
+                    break;
+                default:
+                    writeToLog("Error de edificio invalido");
+                    return;
+            }
+
+            writeToLog(`${buildingType} Construido.`);
+        }
+    } else {
+        writeToLog("Error de edificio invalido");
+    }
+}
+
+function assignBuilding(from, to) {
+    if (gameState.buildings[from] > 0) {
+        gameState.buildings[from]--;
+        gameState.buildings[to]++;
+        console.log(`Assigned one building from ${from} to ${to}.`);
+    } else {
+        console.log(`No ${from} available to assign.`);
+    }
+}
+
+
 function mineStone() {
     gameState.resources.stone += 1;
     updateResources();
