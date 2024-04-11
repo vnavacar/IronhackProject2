@@ -169,4 +169,38 @@ footer {
     visibility: visible;
   }
 
-  
+  .side-by-side {
+    display: flex;
+    flex-direction: column;
+}
+
+  @media screen and (max-width: 768px) {
+    .container, .resources, .content, .main-menu, .tabs, .tabcontent, .log {
+        padding: 0 10px;
+    }
+
+    .side-by-side {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .resources, .log {
+        /* Ajustes para asegurar que ambos tengan un ancho equitativo y espacio */
+        flex-basis: 48%; /* Ajusta esto según sea necesario */
+    }
+
+
+    .tooltip .tooltiptext {
+        font-size: 12px; /* Reduce el tamaño del texto para dispositivos móviles */
+    }
+
+    .control-group button, .section button {
+        font-size: 14px; /* Ajusta el tamaño del texto de los botones para que sea legible pero no ocupe demasiado espacio */
+    }
+
+    .section {
+        margin-bottom: 20px; /* Añade un poco más de espacio entre secciones para toques táctiles */
+    }
+}
+
+
