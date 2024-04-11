@@ -196,6 +196,37 @@ function processAllAssemblers() {
     });
 }
 
+function purchaseUpgrade(upgradeType, resourceType, cost) {
+    // Verifica si la mejora ya ha sido comprada
+    if (gameState.research[upgradeType] >= 1) {
+        //console.log("Mejora ya comprada.");
+        writeToLog("Mejora ya comprada.");
+        return; // Detiene la función si la mejora ya fue realizada
+    }
+
+    // Verifica si hay suficientes recursos para la mejora
+    if (gameState.resources[resourceType] >= cost) {
+        // Deduce el coste de los recursos
+        gameState.resources[resourceType] -= cost;
+
+        // Incrementa la eficiencia del edificio correspondiente
+        gameState.research[upgradeType] = 1; // Establece a 1 para asegurar compra única
+
+        // Cambia el estilo del botón para indicar que la mejora ha sido adquirida
+        const upgradeButton = document.getElementById(`${upgradeType}Upgrade`);
+        upgradeButton.disabled = true; // Deshabilita el botón
+        upgradeButton.style.backgroundColor = "blue"; // Cambia el color del botón
+        upgradeButton.textContent = "Mejora Adquirida"; // Cambia el texto del botón
+
+        //console.log(`Mejora de ${upgradeType} comprada exitosamente.`);
+        writeToLog(`Mejora de ${upgradeType} comprada exitosamente.`);
+    } else {
+        //console.log(`No hay suficientes ${resourceType} para comprar la mejora de ${upgradeType}.`);
+        writeToLog(`No hay suficientes ${resourceType} para comprar la mejora de ${upgradeType}.`)
+    }
+}
+
+
 function buildBuilding(buildingType) {
     const cost = {
         drill: { engranajes: 5, placasHierro: 10 },
@@ -366,6 +397,23 @@ document.addEventListener('DOMContentLoaded', (event) => { //Inicializacion del 
 
     loadGameState();
 
+    updateUpgradeButtons()
+
     setInterval(gameTick, 1000);
     setInterval(saveGameState,10000);
 });
+
+function updateUpgradeButtons() {
+    Object.entries(gameState.research).forEach(([upgradeType, value]) => {
+        const upgradeButton = document.getElementById(`${upgradeType}Upgrade`);
+        if (value >= 1) {
+            upgradeButton.disabled = true;
+            upgradeButton.style.backgroundColor = "blue";
+            upgradeButton.textContent = "Mejora Adquirida";
+        } else {
+            upgradeButton.disabled = false;
+            upgradeButton.style.backgroundColor = ""; // O el color original
+            upgradeButton.textContent = `Mejorar Eficiencia de ${upgradeType.charAt(0).toUpperCase() + upgradeType.slice(1)} - Coste: XXX`; // Ajusta según el coste real y el nombre
+        }
+    });
+}

@@ -11,7 +11,6 @@
         <h1>Idle Factorio</h1>
     </header>
     <div class="container">
-        <div class="content">
         <div class="resources">
             <h2>Recursos</h2>
             <div id="resource_stone">Piedra: <span>0</span></div>
@@ -27,6 +26,8 @@
             <div id="resource_packsInvestigacion">Packs de Investigación: <span>0</span></div>
             <div id="resource_acero">Acero: <span>0</span></div>
         </div>
+        <div class="content">
+
         <div class="main-menu">
             <div class="tabs">
                 <button class="tablink" onclick="openTab(event, 'Fabrica')">Fábrica</button>
@@ -50,7 +51,7 @@
                 </div>
                 <div class="section">
                     <h4>Taladros</h4>
-                    <button onclick="buildBuilding('drill')">Construir Taladro</button> <p>Taladros libres: <span id="idleDrills">0</span></p>
+                    <button class="tooltip" onclick="buildBuilding('drill')">Construir Taladro  <span class="tooltiptext">Construye un taladro que automaticamente mine para ti <br/> Coste: 10 Placas de hierro, 5 engranajes</span></button> <p>Taladros libres: <span id="idleDrills">0</span></p>
                     <div class="building-controls">
                         <div class="control-group">Piedra: <button onclick="assignBuilding('stoneDrills', 'idleDrills')">-</button> <span id="stoneDrills">0</span> <button onclick="assignBuilding('idleDrills', 'stoneDrills')">+</button></div>
                         <div class="control-group">Carbón: <button onclick="assignBuilding('coalDrills', 'idleDrills')">-</button> <span id="coalDrills">0</span> <button onclick="assignBuilding('idleDrills', 'coalDrills')">+</button></div>
@@ -61,7 +62,11 @@
                 
                 <div class="section">
                     <h4>Hornos</h4>
-                    <button onclick="buildBuilding('furnace')">Construir Horno</button><p>Hornos libres: <span id="idleFurnaces">0</span></p>
+                    <!--<button onclick="buildBuilding('furnace')">Construir Horno</button><p>Hornos libres: <span id="idleFurnaces">0</span></p>!-->
+                    <button class="tooltip" onclick="buildBuilding('furnace')">Construir Horno
+                        <span class="tooltiptext">Construye un horno que procesa minerales en materiales útiles.<br/>Coste: 10 Piedras</span>
+                    </button>
+                    <p>Hornos libres: <span id="idleFurnaces">0</span></p>
                     <div class="building-controls">
                         <div class="control-group">Ladrillos: <button onclick="assignBuilding('brickFurnaces', 'idleFurnaces')">-</button> <span id="brickFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'brickFurnaces')">+</button></div>
                         <div class="control-group">Placas de Hierro: <button onclick="assignBuilding('ironFurnaces', 'idleFurnaces')">-</button> <span id="ironFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'ironFurnaces')">+</button></div>
@@ -72,12 +77,16 @@
                 
                 <div class="section">
                     <h4>Fabricadores</h4>
-                    <button onclick="buildBuilding('assembler')">Construir Fabricador</button><p>Fabricadores libres: <span id="idleAssembler">0</span></p>
+                    <button class="tooltip" onclick="buildBuilding('assembler')">Construir Ensamblador
+                        <span class="tooltiptext">Construye un ensamblador que crea componentes avanzados a partir de recursos básicos.<br/>Coste: 1 Circuito, 4 engranajes, 10 placas de hierro</span>
+                    </button>
+                    <p>Ensambladores libres: <span id="idleAssembler">0</span></p>
                     <div class="building-controls">
                         <div class="control-group">Engranajes: <button onclick="assignBuilding('engranajeAssembler', 'idleAssembler')">-</button> <span id="engranajeAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'engranajeAssembler')">+</button></div>
                         <div class="control-group">Cables de Cobre: <button onclick="assignBuilding('cableAssembler', 'idleAssembler')">-</button> <span id="cableAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'cableAssembler')">+</button></div>
                         <div class="control-group">Circuitos: <button onclick="assignBuilding('circuitoAssembler', 'idleAssembler')">-</button> <span id="circuitoAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'circuitoAssembler')">+</button></div>
                         <div class="control-group">Packs de Investigación: <button onclick="assignBuilding('packInvestigacionAssembler', 'idleAssembler')">-</button> <span id="packInvestigacionAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'packInvestigacionAssembler')">+</button></div>
+                        </div>
                     </div>
                 </div>
                 
@@ -89,6 +98,9 @@
                 <h3>Investigación</h3>
                 <p>Aquí puedes investigar nuevas tecnologías y mejoras.</p>
                 <!-- Contenido específico de Investigación -->
+                <button id="drillEfficiencyUpgrade" onclick="purchaseUpgrade('drillEfficiency', 'acero', 100)">Mejorar Eficiencia de Taladros - Coste: 100 Acero</button>
+                <button id="furnaceEfficiencyUpgrade" onclick="purchaseUpgrade('furnaceEfficiency', 'bricks', 100)">Mejorar Eficiencia de Hornos - Coste: 100 Ladrillos</button>
+                <button id="assemblerEfficiencyUpgrade" onclick="purchaseUpgrade('assemblerEfficiency', 'circuitos', 100)">Mejorar Eficiencia de Ensambladores - Coste: 100 Circuitos</button>
             </div>
         
             <div id="Opciones" class="tabcontent">
