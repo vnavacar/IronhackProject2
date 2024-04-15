@@ -9,6 +9,7 @@ body{
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 header {
@@ -67,7 +68,7 @@ header {
 
 .tabcontent {
     display: none;
-    padding: 20px;
+    /*padding: 20px;*/
     /*border: 1px solid #ccc;*/
     border-top: none;
     width: 100%;
