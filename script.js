@@ -366,6 +366,18 @@ function craftCircuits(){
     }
 }
 
+function checkVictory() {
+    const neededPacks = 100;
+    if (gameState.resources.packsInvestigacion >= neededPacks) {
+        gameState.resources.packsInvestigacion -= neededPacks; 
+        writeToLog("Fin del juego, no hay más que ver")
+        alert("Fin del juego, no hay más que ver"); 
+    } else {
+        //alert("Necesitas 100 packs de investigación para terminar el juego.");
+        writeToLog("Necesitas 100 packs de investigación para terminar el juego.");
+    }
+}
+
 function writeToLog(message) {
     const log = document.getElementById('messageLog');
     const currentTime = new Date();
