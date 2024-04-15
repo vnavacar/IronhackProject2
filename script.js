@@ -451,8 +451,8 @@ function updateUpgradeButtons() {
             upgradeButton.textContent = "Mejora Adquirida";
         } else {
             upgradeButton.disabled = false;
-            upgradeButton.style.backgroundColor = ""; // O el color original
-            upgradeButton.textContent = `Mejorar Eficiencia de ${upgradeType.charAt(0).toUpperCase() + upgradeType.slice(1)} - Coste: XXX`; // Ajusta según el coste real y el nombre
+            upgradeButton.style.backgroundColor = ""; 
+            //upgradeButton.textContent = `Mejorar Eficiencia de ${upgradeType.charAt(0).toUpperCase() + upgradeType.slice(1)} - Coste: XXX`;
         }
     });
 }
