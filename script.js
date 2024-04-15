@@ -99,6 +99,7 @@ function gameTick() {
     // Actualizar la interfaz de usuario aquí basado en gameState
     updateResources();
     updateBuildingCounts();
+    updateConstructionButtons()
     console.log(gameState)
 }
 // --------------------------------------------------------
@@ -270,6 +271,32 @@ function buildBuilding(buildingType) {
         writeToLog("Error de edificio invalido");
     }
 }
+
+function updateConstructionButtons() { //Actualizar color de botones (puedes construir o no)
+    const constructionDetails = [
+        { id: 'buildDrillButton', cost:{ engranajes: 5, placasHierro: 10 }},
+        { id: 'buildFurnaceButton', cost: { stone: 10 } },
+        { id: 'buildAssemblerButton', cost:{ circuitos: 1, engranajes: 4, placasHierro: 10 } }
+    ];
+
+    constructionDetails.forEach(detail => {
+        const button = document.getElementById(detail.id);
+        let canAfford = true;
+
+        Object.entries(detail.cost).forEach(([resource, amount]) => {
+            if (gameState.resources[resource] < amount) {
+                canAfford = false;
+            }
+        });
+
+        if (canAfford) {
+            button.style.backgroundColor = "#4CAF50"; // Verde, suficientes recursos
+        } else {
+            button.style.backgroundColor = "#f44336"; // Rojo, no suficientes recursos
+        }
+    });
+}
+
 
 function assignBuilding(from, to) {
     if (gameState.buildings[from] > 0) {

@@ -51,7 +51,7 @@
                 </div>
                 <div class="section">
                     <h4>Taladros</h4>
-                    <button class="tooltip" onclick="buildBuilding('drill')">Construir Taladro  <span class="tooltiptext">Construye un taladro que automaticamente mine para ti <br/> Coste: 10 Placas de hierro, 5 engranajes</span></button> <p>Taladros libres: <span id="idleDrills">0</span></p>
+                    <button id="buildDrillButton" class="tooltip" onclick="buildBuilding('drill')">Construir Taladro  <span class="tooltiptext">Construye un taladro que automaticamente mine para ti <br/> Coste: 10 Placas de hierro, 5 engranajes</span></button> <p>Taladros libres: <span id="idleDrills">0</span></p>
                     <div class="building-controls">
                         <div class="control-group">Piedra: <button onclick="assignBuilding('stoneDrills', 'idleDrills')">-</button> <span id="stoneDrills">0</span> <button onclick="assignBuilding('idleDrills', 'stoneDrills')">+</button></div>
                         <div class="control-group">Carbón: <button onclick="assignBuilding('coalDrills', 'idleDrills')">-</button> <span id="coalDrills">0</span> <button onclick="assignBuilding('idleDrills', 'coalDrills')">+</button></div>
@@ -63,7 +63,7 @@
                 <div class="section">
                     <h4>Hornos</h4>
                     <!--<button onclick="buildBuilding('furnace')">Construir Horno</button><p>Hornos libres: <span id="idleFurnaces">0</span></p>!-->
-                    <button class="tooltip" onclick="buildBuilding('furnace')">Construir Horno
+                    <button id="buildFurnaceButton" class="tooltip" onclick="buildBuilding('furnace')">Construir Horno
                         <span class="tooltiptext">Construye un horno que procesa minerales en materiales útiles.<br/>Coste: 10 Piedras</span>
                     </button>
                     <p>Hornos libres: <span id="idleFurnaces">0</span></p>
@@ -77,7 +77,7 @@
                 
                 <div class="section">
                     <h4>Fabricadores</h4>
-                    <button class="tooltip" onclick="buildBuilding('assembler')">Construir Ensamblador
+                    <button id="buildAssemblerButton" class="tooltip" onclick="buildBuilding('assembler')">Construir Ensamblador
                         <span class="tooltiptext">Construye un ensamblador que crea componentes avanzados a partir de recursos básicos.<br/>Coste: 1 Circuito, 4 engranajes, 10 placas de hierro</span>
                     </button>
                     <p>Ensambladores libres: <span id="idleAssembler">0</span></p>
@@ -114,7 +114,7 @@
             <div id="messageLog"></div>
         </div>
         <footer>
-            <p>Producto mínimo viable para Ironhack hecho por <a href="https://github.com/vnavacar">vnavacar</a></p>
+            <p>Pagina creada para Ironhack, hecha por <a href="https://github.com/vnavacar">vnavacar</a></p>
         </footer>
         </div>
     </div>
