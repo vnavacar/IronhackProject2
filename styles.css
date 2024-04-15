@@ -34,6 +34,8 @@ header {
     flex-wrap: wrap;
     flex-direction: column;
     align-content: center;
+
+    min-height: 95%;
 }
 
 .resources, .log {
@@ -186,6 +188,9 @@ footer {
     .container, .resources, .content, .main-menu, .tabs, .tabcontent, .log {
         padding: 0 10px;
     }
+    .content{
+        min-height: 10%;
+    }
 
     .side-by-side {
         flex-direction: row;
@@ -208,6 +213,7 @@ footer {
     .section {
         margin-bottom: 20px; /* Añade un poco más de espacio entre secciones para toques táctiles */
     }
+
 }
 
 
