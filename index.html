@@ -53,10 +53,10 @@
                     <h4>Taladros</h4>
                     <button id="buildDrillButton" class="tooltip" onclick="buildBuilding('drill')">Construir Taladro  <span class="tooltiptext">Construye un taladro que automaticamente mine para ti <br/> Coste: 10 Placas de hierro, 5 engranajes</span></button> <p>Taladros libres: <span id="idleDrills">0</span></p>
                     <div class="building-controls">
-                        <div class="control-group">Piedra: <button onclick="assignBuilding('stoneDrills', 'idleDrills')">-</button> <span id="stoneDrills">0</span> <button onclick="assignBuilding('idleDrills', 'stoneDrills')">+</button></div>
-                        <div class="control-group">Carbón: <button onclick="assignBuilding('coalDrills', 'idleDrills')">-</button> <span id="coalDrills">0</span> <button onclick="assignBuilding('idleDrills', 'coalDrills')">+</button></div>
-                        <div class="control-group">Mineral de hierro: <button onclick="assignBuilding('ironDrills', 'idleDrills')">-</button> <span id="ironDrills">0</span> <button onclick="assignBuilding('idleDrills', 'ironDrills')">+</button></div>
-                        <div class="control-group">Mineral de cobre: <button onclick="assignBuilding('copperDrills', 'idleDrills')">-</button> <span id="copperDrills">0</span> <button onclick="assignBuilding('idleDrills', 'copperDrills')">+</button></div>
+                        <div class="control-group tooltip">Piedra: <button onclick="assignBuilding('stoneDrills', 'idleDrills')">-</button> <span id="stoneDrills">0</span> <button onclick="assignBuilding('idleDrills', 'stoneDrills')">+</button> <span class="tooltiptext">Asigna un taladro para minar 1 piedra automáticamente cada tick.<br/> Consume 0.1 carbon por tick</span> </div>
+                        <div class="control-group tooltip">Carbón: <button onclick="assignBuilding('coalDrills', 'idleDrills')">-</button> <span id="coalDrills">0</span> <button onclick="assignBuilding('idleDrills', 'coalDrills')">+</button> <span class="tooltiptext">Asigna un taladro para minar 1 carbón automáticamente cada tick. <br/> Consume 0.1 carbon por tick</span></div>
+                        <div class="control-group tooltip">Mineral de hierro: <button onclick="assignBuilding('ironDrills', 'idleDrills')">-</button> <span id="ironDrills">0</span> <button onclick="assignBuilding('idleDrills', 'ironDrills')">+</button><span class="tooltiptext">Asigna un taladro para minar 1 mineral de hierro automáticamente cada tick.<br/> Consume 0.1 carbon por tick</span></div>
+                        <div class="control-group tooltip">Mineral de cobre: <button onclick="assignBuilding('copperDrills', 'idleDrills')">-</button> <span id="copperDrills">0</span> <button onclick="assignBuilding('idleDrills', 'copperDrills')">+</button><span class="tooltiptext">Asigna un taladro para minar 1 mineral de cobre automáticamente cada tick.<br/> Consume 0.1 carbon por tick</span></div>
                     </div>
                 </div>
                 
@@ -68,10 +68,10 @@
                     </button>
                     <p>Hornos libres: <span id="idleFurnaces">0</span></p>
                     <div class="building-controls">
-                        <div class="control-group">Ladrillos: <button onclick="assignBuilding('brickFurnaces', 'idleFurnaces')">-</button> <span id="brickFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'brickFurnaces')">+</button></div>
-                        <div class="control-group">Placas de Hierro: <button onclick="assignBuilding('ironFurnaces', 'idleFurnaces')">-</button> <span id="ironFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'ironFurnaces')">+</button></div>
-                        <div class="control-group">Placas de Cobre: <button onclick="assignBuilding('copperFurnaces', 'idleFurnaces')">-</button> <span id="copperFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'copperFurnaces')">+</button></div>
-                        <div class="control-group">Acero: <button onclick="assignBuilding('steelFurnaces', 'idleFurnaces')">-</button> <span id="steelFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'steelFurnaces')">+</button></div>
+                        <div class="control-group tooltip">Ladrillos: <button onclick="assignBuilding('brickFurnaces', 'idleFurnaces')">-</button> <span id="brickFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'brickFurnaces')">+</button><span class="tooltiptext">Consume 2 Piedras y 0.1 carbon para producir 1 Ladrillo.</span></div>
+                        <div class="control-group tooltip">Placas de Hierro: <button onclick="assignBuilding('ironFurnaces', 'idleFurnaces')">-</button> <span id="ironFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'ironFurnaces')">+</button><span class="tooltiptext">Consume 1 Mineral de Hierro y 0.1 carbon para producir 1 Placa de Hierro.</span></div>
+                        <div class="control-group tooltip">Placas de Cobre: <button onclick="assignBuilding('copperFurnaces', 'idleFurnaces')">-</button> <span id="copperFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'copperFurnaces')">+</button><span class="tooltiptext">Consume 1 Mineral de Cobre y 0.1 carbon para producir 1 Placa de Cobre.</span></div>
+                        <div class="control-group tooltip">Acero: <button onclick="assignBuilding('steelFurnaces', 'idleFurnaces')">-</button> <span id="steelFurnaces">0</span> <button onclick="assignBuilding('idleFurnaces', 'steelFurnaces')">+</button><span class="tooltiptext">Consume 3 Placas de Hierro y 0.1 carbon para producir 1 Acero.</span></div>
                     </div>
                 </div>
                 
@@ -82,10 +82,10 @@
                     </button>
                     <p>Ensambladores libres: <span id="idleAssembler">0</span></p>
                     <div class="building-controls">
-                        <div class="control-group">Engranajes: <button onclick="assignBuilding('engranajeAssembler', 'idleAssembler')">-</button> <span id="engranajeAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'engranajeAssembler')">+</button></div>
-                        <div class="control-group">Cables de Cobre: <button onclick="assignBuilding('cableAssembler', 'idleAssembler')">-</button> <span id="cableAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'cableAssembler')">+</button></div>
-                        <div class="control-group">Circuitos: <button onclick="assignBuilding('circuitoAssembler', 'idleAssembler')">-</button> <span id="circuitoAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'circuitoAssembler')">+</button></div>
-                        <div class="control-group">Packs de Investigación: <button onclick="assignBuilding('packInvestigacionAssembler', 'idleAssembler')">-</button> <span id="packInvestigacionAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'packInvestigacionAssembler')">+</button></div>
+                        <div class="control-group tooltip">Engranajes: <button onclick="assignBuilding('engranajeAssembler', 'idleAssembler')">-</button> <span id="engranajeAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'engranajeAssembler')">+</button><span class="tooltiptext">Consume 2 Placas de Hierro para producir 1 Engranaje.</span></div>
+                        <div class="control-group tooltip">Cables de Cobre: <button onclick="assignBuilding('cableAssembler', 'idleAssembler')">-</button> <span id="cableAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'cableAssembler')">+</button><span class="tooltiptext">Consume 1 Placas de cobre para producir 2 cables de cobre.</span></div>
+                        <div class="control-group tooltip">Circuitos: <button onclick="assignBuilding('circuitoAssembler', 'idleAssembler')">-</button> <span id="circuitoAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'circuitoAssembler')">+</button><span class="tooltiptext">Consume 1 placa de hierro y 3 cables para producir 1 circuito.</span></div>
+                        <div class="control-group tooltip">Packs de Investigación: <button onclick="assignBuilding('packInvestigacionAssembler', 'idleAssembler')">-</button> <span id="packInvestigacionAssembler">0</span> <button onclick="assignBuilding('idleAssembler', 'packInvestigacionAssembler')">+</button><span class="tooltiptext">Consume 1 Placa de cobre y 1 engranaje para producir 1 pack de investigacion.</span></div>
                         </div>
                     </div>
                 </div>
