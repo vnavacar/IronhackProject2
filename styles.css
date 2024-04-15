@@ -10,6 +10,7 @@ body{
     flex-wrap: nowrap;
     flex-direction: column;
     overflow-x: hidden;
+    align-items: stretch;
 }
 
 header {
