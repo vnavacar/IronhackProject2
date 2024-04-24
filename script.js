@@ -35,6 +35,9 @@ const gameState = {
         furnaceEfficiency: 0, 
         assemblerEfficiency: 0, 
     },
+    progressFlags: {
+        spaceshipSalvaged : 0,
+    },
     stats: {
         playTime: 0, // Tiempo de juego en segundos
     }
@@ -112,6 +115,8 @@ document.addEventListener('DOMContentLoaded', (event) => { //Inicializacion de l
 
     setInterval(gameTick, 1000);
     setInterval(saveGameState,10000);
+
+    checkInitialMessage();
 });
 
 // GAME TICK MAESTRO -------------------------
@@ -405,6 +410,28 @@ function updateGameTime() {
     document.getElementById('gameTime').textContent = gameState.stats.playTime;
 }
 
+function checkInitialMessage(){
+    if (gameState.progressFlags.spaceshipSalvaged === 0) {
+        writeToLog("Te has estreñado en un planeta alienigena... Si quieres salir necesitaras recursos... Una fabrica te los podria producir, pero una fabrica requiere recursos... Necesitaras empezar por desguazar tu nave");
+    } else {
+        document.getElementById("desguazarNave").style.display = "none";
+    }
+}
+
+function desguazarNave(){
+    if(gameState.progressFlags.spaceshipSalvaged === 0){
+        document.getElementById("desguazarNave").style.display = "none";
+        writeToLog();
+
+        gameState.resources.placasHierro += 200;
+        gameState.resources.engranajes += 40;
+
+        gameState.resources.cableCobre += 100;
+
+    } else {
+        writeToLog("Esto no deberia ser possible, pero como intentaste volver a desguazar tu nave?");
+    }
+}
 
 
 
