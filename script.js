@@ -419,14 +419,18 @@ function checkInitialMessage(){
 }
 
 function desguazarNave(){
-    if(gameState.progressFlags.spaceshipSalvaged === 0){
-        document.getElementById("desguazarNave").style.display = "none";
-        writeToLog();
+    if(gameState.progressFlags.spaceshipSalvaged === 0){ // porsi acaso
+        
+        writeToLog("Con estos recursos deberias tener suficiente para unos cuantos taladros, carbon sera un buen punto de partida, lo necesitaras para hornos y taladros, construye tu fabrica poco a poco y cuando tengas una buena cantidad de recursos investiga");
 
         gameState.resources.placasHierro += 200;
         gameState.resources.engranajes += 40;
 
         gameState.resources.cableCobre += 100;
+        gameState.resources.circuitos += 5;
+
+        gameState.progressFlags.spaceshipSalvaged = 1;
+        document.getElementById("desguazarNave").style.display = "none";
 
     } else {
         writeToLog("Esto no deberia ser possible, pero como intentaste volver a desguazar tu nave?");
