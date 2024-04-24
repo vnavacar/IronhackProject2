@@ -40,6 +40,42 @@ const gameState = {
     }
 };
 
+const buildingsConfig = [
+    { type: 'coalDrills', inputResources: [{ resource: 'carbon', amount: 0.1 }], outputResource: 'carbon', outputAmount: 1 },
+    { type: 'stoneDrills', inputResources: [{ resource: 'carbon', amount: 0.1 }], outputResource: 'stone', outputAmount: 1 },
+    { type: 'ironDrills', inputResources: [{ resource: 'carbon', amount: 0.1 }], outputResource: 'mineralHierro', outputAmount: 1 },
+    { type: 'copperDrills', inputResources: [{ resource: 'carbon', amount: 0.1 }], outputResource: 'mineralCobre', outputAmount: 1 },
+
+    { type: 'brickFurnaces', inputResources: [{ resource: 'stone', amount: 2 },{ resource: 'carbon', amount: 0.1 }], outputResource: 'bricks', outputAmount: 1 },
+    { type: 'ironFurnaces', inputResources: [{ resource: 'mineralHierro', amount: 1 },{ resource: 'carbon', amount: 0.1 }], outputResource: 'placasHierro', outputAmount: 1 },
+    { type: 'copperFurnaces', inputResources: [{ resource: 'mineralCobre', amount: 1 },{ resource: 'carbon', amount: 0.1 }], outputResource: 'placasCobre', outputAmount: 1 },
+    { type: 'steelFurnaces', inputResources: [{ resource: 'placasHierro', amount: 3 },{ resource: 'carbon', amount: 0.1 }], outputResource: 'acero', outputAmount: 1 },
+
+    { type: 'engranajeAssembler', inputResources: [{ resource: 'placasHierro', amount: 2 }], outputResource: 'engranajes', outputAmount: 1 },
+    { type: 'cableAssembler', inputResources: [{ resource: 'placasCobre', amount: 1 }], outputResource: 'cableCobre', outputAmount: 2 },
+    { type: 'circuitoAssembler', inputResources: [{ resource: 'cableCobre', amount: 3 }, { resource: 'placasHierro', amount: 1 }], outputResource: 'circuitos', outputAmount: 1 },
+    { type: 'packInvestigacionAssembler', inputResources: [{ resource: 'engranajes', amount: 1 }, { resource: 'placasCobre', amount: 1 }], outputResource: 'packsInvestigacion', outputAmount: 1 }
+
+];
+
+const researchMapping = {
+    'coalDrills': 'drillEfficiency',
+    'stoneDrills': 'drillEfficiency',
+    'ironDrills': 'drillEfficiency',
+    'copperDrills': 'drillEfficiency',
+
+    'brickFurnaces': 'furnaceEfficiency',
+    'ironFurnaces': 'furnaceEfficiency',
+    'copperFurnaces': 'furnaceEfficiency',
+    'steelFurnaces': 'furnaceEfficiency',
+
+    'engranajeAssembler': 'assemblerEfficiency',
+    'cableAssembler': 'assemblerEfficiency',
+    'circuitoAssembler': 'assemblerEfficiency',
+    'packInvestigacionAssembler': 'assemblerEfficiency'
+};
+
+
 function updateResources() {
     for (const [key, value] of Object.entries(gameState.resources)) {
         const resourceId = `resource_${key}`;
@@ -68,35 +104,29 @@ function updateBuildingCounts() {
 }
 
 
-//window.onload = () => {
-//    loadGameState();
-    // Actualizar la interfaz de usuario aquí basado en gameState
-//};
+document.addEventListener('DOMContentLoaded', (event) => { //Inicializacion de la pagina
 
+    loadGameState();
 
-/*
-setInterval(() => { // guardar cada 10 segundos
-    saveGameState();
-}, 10000);
+    updateUpgradeButtons()
 
-setInterval(() => { // tick del juego, uno cada segundo
-    gameTick();
-}, 1000);
-*/
-
+    setInterval(gameTick, 1000);
+    setInterval(saveGameState,10000);
+});
 
 // GAME TICK MAESTRO -------------------------
 function gameTick() {
     // Lógica para procesar los recursos cada tick
-    processAllDrills();
-    processAllFurnaces();
-    processAllAssemblers();
+    //processAllDrills();
+    //processAllFurnaces();
+    //processAllAssemblers();
+    processBuildings(buildingsConfig);
 
     // Actualizar estadísticas de tiempo de juego
     gameState.stats.playTime += 1;
     updateGameTime();
 
-    // Actualizar la interfaz de usuario aquí basado en gameState
+    // Actualizar la interfaz de usuario
     updateResources();
     updateBuildingCounts();
     updateConstructionButtons()
@@ -104,120 +134,64 @@ function gameTick() {
 }
 // --------------------------------------------------------
 
-function processAllDrills() {
-    const drills = [
-        { type: 'coalDrills', resource: 'carbon' },
-        { type: 'stoneDrills', resource: 'stone' },
-        { type: 'ironDrills', resource: 'mineralHierro' },
-        { type: 'copperDrills', resource: 'mineralCobre' }
-    ];
-    const element = document.getElementById('resource_carbon');
-    element.style.color = '';
-    //document.getElementById(resource_carbon).style.color = '';
-    drills.forEach(drill => {
-        const drillCount = gameState.buildings[drill.type];
-        if(gameState.resources.carbon >= drillCount*0.1){
-            const production = drillCount * (1 + gameState.research.drillEfficiency); // Aumenta producción basada en la investigación
-            gameState.resources[drill.resource] += production;
-            gameState.resources.carbon -= drillCount*0.1;
-        }
-        else{
-            //document.getElementById(resource_carbon).style.color = 'red';
-            element.style.color = 'red';
-        }
+function processBuildings(buildings) {
+    buildings.forEach(building => {
+        const buildingCount = gameState.buildings[building.type];
+        if (!buildingCount) return; // Si no hay edificios de este tipo ignorar
+        // return solo termina el forEach para un building
 
-    });
-}
+        let canProcess = true;
+        let resourcesNeeded = {}; //Objeto conteniendo inputs
 
-function processAllFurnaces() {
-    const furnaces = [
-        { type: 'brickFurnaces', inputResource: 'stone', outputResource: 'bricks', inputAmount: 2, outputAmount: 1, resourceId: 'resource_stone' },
-        { type: 'ironFurnaces', inputResource: 'mineralHierro', outputResource: 'placasHierro', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralHierro' },
-        { type: 'copperFurnaces', inputResource: 'mineralCobre', outputResource: 'placasCobre', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralCobre' },
-        { type: 'steelFurnaces', inputResource: 'placasHierro', outputResource: 'acero', inputAmount: 3, outputAmount: 1, resourceId: 'resource_placasHierro' }
-    ];
+        let efficiencyType = researchMapping[building.type] 
+        let efficiencyMultiplier = 1 + gameState.research[efficiencyType]
 
-    // Inicialmente, asumimos que todos los recursos están disponibles
-    furnaces.forEach(furnace => document.getElementById(furnace.resourceId).style.color = '');
-
-    furnaces.forEach(furnace => {
-        const furnaceCount = gameState.buildings[furnace.type];
-        const carbonNeeded = furnaceCount * 0.1;
-        if (gameState.resources.carbon >= carbonNeeded) {
-            const possibleProduction = Math.floor(gameState.resources[furnace.inputResource] / furnace.inputAmount);
-            const actualProduction = Math.min(possibleProduction, furnaceCount * (1 + gameState.research.furnaceEfficiency));
-            
-            if (actualProduction > 0) {
-                gameState.resources.carbon -= carbonNeeded;
-                gameState.resources[furnace.inputResource] -= actualProduction * furnace.inputAmount;
-                gameState.resources[furnace.outputResource] += actualProduction * furnace.outputAmount;
-            } else {
-                // Faltan inputs
-                document.getElementById(furnace.resourceId).style.color = 'red';
-            }
-        } else {
-            // Falta carbon
-            document.getElementById('resource_carbon').style.color = 'red';
-        }
-    });
-}
-
-function processAllAssemblers() {
-    const assemblers = [
-        { type: 'engranajeAssembler', inputResources: [{ resource: 'placasHierro', amount: 2 }], outputResource: 'engranajes', outputAmount: 1 },
-        { type: 'cableAssembler', inputResources: [{ resource: 'placasCobre', amount: 1 }], outputResource: 'cableCobre', outputAmount: 2 },
-        { type: 'circuitoAssembler', inputResources: [{ resource: 'cableCobre', amount: 3 }, { resource: 'placasHierro', amount: 1 }], outputResource: 'circuitos', outputAmount: 1 },
-        { type: 'packInvestigacionAssembler', inputResources: [{ resource: 'engranajes', amount: 1 }, { resource: 'placasCobre', amount: 1 }], outputResource: 'packsInvestigacion', outputAmount: 1 }
-    ];
-
-    assemblers.forEach(assembler => {
-        const assemblerCount = gameState.buildings[assembler.type];
-        let canProduce = true;
-
-        // Verificar si hay suficientes recursos para cada input requerido
-        assembler.inputResources.forEach(input => {
-            if (gameState.resources[input.resource] < input.amount * assemblerCount && assemblerCount >= 1) {
-                canProduce = false;
-                document.getElementById(`resource_${input.resource}`).style.color = 'red'; // Marcar en rojo si falta
+        // inputs necesarios?
+        building.inputResources.forEach(input => {
+            const totalNeeded = input.amount * buildingCount * efficiencyMultiplier;
+            resourcesNeeded[input.resource] = (resourcesNeeded[input.resource] || 0) + totalNeeded;
+            if (gameState.resources[input.resource] < totalNeeded) {
+                canProcess = false;
+                document.getElementById(`resource_${input.resource}`).style.color = 'red';
+                writeToLog(`Inputs insuficientes para ${building.type}`);
             }
         });
 
-        // Si hay suficientes recursos, proceder con la producción
-        if (canProduce) {
-            assembler.inputResources.forEach(input => {
-                gameState.resources[input.resource] -= input.amount * assemblerCount; // Consumir recursos
+        // Produccion
+        if (canProcess) {
+            Object.keys(resourcesNeeded).forEach(resource => {
+                gameState.resources[resource] -= resourcesNeeded[resource]; // consumir inputs
+                document.getElementById(`resource_${resource}`).style.color = ''; // Restablecer color
             });
-            gameState.resources[assembler.outputResource] += assembler.outputAmount * assemblerCount; // Añadir producto
 
-            // Restablecer el color de los recursos de entrada después de la producción
-            assembler.inputResources.forEach(input => {
-                document.getElementById(`resource_${input.resource}`).style.color = ''; // Restablecer color
-            });
+            if (building.outputResource && building.outputAmount) { // Para que los idles no rompan js
+                gameState.resources[building.outputResource] += building.outputAmount * buildingCount * efficiencyMultiplier; // Añadir outputs
+            }
         }
     });
 }
+
 
 function purchaseUpgrade(upgradeType, resourceType, cost) {
     // Verifica si la mejora ya ha sido comprada
     if (gameState.research[upgradeType] >= 1) {
         //console.log("Mejora ya comprada.");
         writeToLog("Mejora ya comprada.");
-        return; // Detiene la función si la mejora ya fue realizada
+        return; 
     }
 
     // Verifica si hay suficientes recursos para la mejora
     if (gameState.resources[resourceType] >= cost) {
-        // Deduce el coste de los recursos
+
         gameState.resources[resourceType] -= cost;
 
-        // Incrementa la eficiencia del edificio correspondiente
-        gameState.research[upgradeType] = 1; // Establece a 1 para asegurar compra única
+        gameState.research[upgradeType] = 1; 
 
         // Cambia el estilo del botón para indicar que la mejora ha sido adquirida
         const upgradeButton = document.getElementById(`${upgradeType}Upgrade`);
-        upgradeButton.disabled = true; // Deshabilita el botón
-        upgradeButton.style.backgroundColor = "blue"; // Cambia el color del botón
-        upgradeButton.textContent = "Mejora Adquirida"; // Cambia el texto del botón
+        upgradeButton.disabled = true; // Ajustar boton despues de comprar
+        upgradeButton.style.backgroundColor = "blue"; 
+        upgradeButton.textContent = "Mejora Comprada"; 
 
         //console.log(`Mejora de ${upgradeType} comprada exitosamente.`);
         writeToLog(`Mejora de ${upgradeType} comprada exitosamente.`);
@@ -292,7 +266,7 @@ function updateConstructionButtons() { //Actualizar color de botones (puedes con
         if (canAfford) {
             button.style.backgroundColor = "#4CAF50"; // Verde, suficientes recursos
         } else {
-            button.style.backgroundColor = "#f44336"; // Rojo, no suficientes recursos
+            button.style.backgroundColor = "#f44336"; // Rojo, no hay suficientes recursos
         }
     });
 }
@@ -304,7 +278,7 @@ function assignBuilding(from, to) {
         gameState.buildings[to]++;
         console.log(`Assigned one building from ${from} to ${to}.`);
     } else {
-        console.log(`No ${from} available to assign.`);
+        writeToLog(`No quedan ${from} disponibles para asignar`)
     }
     updateBuildingCounts();
 }
@@ -432,15 +406,7 @@ function updateGameTime() {
 }
 
 
-document.addEventListener('DOMContentLoaded', (event) => { //Inicializacion del programa
 
-    loadGameState();
-
-    updateUpgradeButtons()
-
-    setInterval(gameTick, 1000);
-    setInterval(saveGameState,10000);
-});
 
 function updateUpgradeButtons() {
     Object.entries(gameState.research).forEach(([upgradeType, value]) => {
@@ -448,11 +414,101 @@ function updateUpgradeButtons() {
         if (value >= 1) {
             upgradeButton.disabled = true;
             upgradeButton.style.backgroundColor = "blue";
-            upgradeButton.textContent = "Mejora Adquirida";
+            upgradeButton.textContent = "Mejora Comprada";
         } else {
             upgradeButton.disabled = false;
             upgradeButton.style.backgroundColor = ""; 
-            //upgradeButton.textContent = `Mejorar Eficiencia de ${upgradeType.charAt(0).toUpperCase() + upgradeType.slice(1)} - Coste: XXX`;
         }
     });
 }
+
+/*
+function processAllDrills() {
+    const drills = [
+        { type: 'coalDrills', resource: 'carbon' },
+        { type: 'stoneDrills', resource: 'stone' },
+        { type: 'ironDrills', resource: 'mineralHierro' },
+        { type: 'copperDrills', resource: 'mineralCobre' }
+    ];
+    const element = document.getElementById('resource_carbon');
+    element.style.color = '';
+    //document.getElementById(resource_carbon).style.color = '';
+    drills.forEach(drill => {
+        const drillCount = gameState.buildings[drill.type];
+        if(gameState.resources.carbon >= drillCount*0.1){
+            const production = drillCount * (1 + gameState.research.drillEfficiency);
+            gameState.resources[drill.resource] += production;
+            gameState.resources.carbon -= drillCount*0.1;
+        }
+        else{
+            //document.getElementById(resource_carbon).style.color = 'red';
+            element.style.color = 'red';
+        }
+
+    });
+}
+
+function processAllFurnaces() {
+    const furnaces = [
+        { type: 'brickFurnaces', inputResource: 'stone', outputResource: 'bricks', inputAmount: 2, outputAmount: 1, resourceId: 'resource_stone' },
+        { type: 'ironFurnaces', inputResource: 'mineralHierro', outputResource: 'placasHierro', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralHierro' },
+        { type: 'copperFurnaces', inputResource: 'mineralCobre', outputResource: 'placasCobre', inputAmount: 1, outputAmount: 1, resourceId: 'resource_mineralCobre' },
+        { type: 'steelFurnaces', inputResource: 'placasHierro', outputResource: 'acero', inputAmount: 3, outputAmount: 1, resourceId: 'resource_placasHierro' }
+    ];
+
+    furnaces.forEach(furnace => document.getElementById(furnace.resourceId).style.color = '');
+
+    furnaces.forEach(furnace => {
+        const furnaceCount = gameState.buildings[furnace.type];
+        const carbonNeeded = furnaceCount * 0.1;
+        if (gameState.resources.carbon >= carbonNeeded) {
+            const possibleProduction = Math.floor(gameState.resources[furnace.inputResource] / furnace.inputAmount);
+            const actualProduction = Math.min(possibleProduction, furnaceCount * (1 + gameState.research.furnaceEfficiency));
+            
+            if (actualProduction > 0) {
+                gameState.resources.carbon -= carbonNeeded;
+                gameState.resources[furnace.inputResource] -= actualProduction * furnace.inputAmount;
+                gameState.resources[furnace.outputResource] += actualProduction * furnace.outputAmount;
+            } else {
+                // Faltan inputs
+                document.getElementById(furnace.resourceId).style.color = 'red';
+            }
+        } else {
+            // Falta carbon
+            document.getElementById('resource_carbon').style.color = 'red';
+        }
+    });
+}
+
+function processAllAssemblers() {
+    const assemblers = [
+        { type: 'engranajeAssembler', inputResources: [{ resource: 'placasHierro', amount: 2 }], outputResource: 'engranajes', outputAmount: 1 },
+        { type: 'cableAssembler', inputResources: [{ resource: 'placasCobre', amount: 1 }], outputResource: 'cableCobre', outputAmount: 2 },
+        { type: 'circuitoAssembler', inputResources: [{ resource: 'cableCobre', amount: 3 }, { resource: 'placasHierro', amount: 1 }], outputResource: 'circuitos', outputAmount: 1 },
+        { type: 'packInvestigacionAssembler', inputResources: [{ resource: 'engranajes', amount: 1 }, { resource: 'placasCobre', amount: 1 }], outputResource: 'packsInvestigacion', outputAmount: 1 }
+    ];
+
+    assemblers.forEach(assembler => {
+        const assemblerCount = gameState.buildings[assembler.type];
+        let canProduce = true;
+
+        assembler.inputResources.forEach(input => {
+            if (gameState.resources[input.resource] < input.amount * assemblerCount && assemblerCount >= 1) {
+                canProduce = false;
+                document.getElementById(`resource_${input.resource}`).style.color = 'red'; 
+            }
+        });
+
+        if (canProduce) {
+            assembler.inputResources.forEach(input => {
+                gameState.resources[input.resource] -= input.amount * assemblerCount; // Consumir recursos
+            });
+            gameState.resources[assembler.outputResource] += assembler.outputAmount * assemblerCount; // Añadir producto
+
+            assembler.inputResources.forEach(input => {
+                document.getElementById(`resource_${input.resource}`).style.color = ''; // Restablecer color
+            });
+        }
+    });
+}
+*/
